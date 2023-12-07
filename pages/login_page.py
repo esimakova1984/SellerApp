@@ -34,6 +34,7 @@ class LoginPage(BasePage):
     def is_error_message_appeared(self):
         assert self.wait.until(EC.visibility_of_element_located(self.ERROR_MESSAGE)), "Invalid username or password."
 
+    @allure.step("Login with generated username")
     def login_with_generated_username(self, username):
         self.wait.until(EC.element_to_be_clickable(self.USERNAME_FIELD)).send_keys(username)
         self.wait.until(EC.element_to_be_clickable(self.PASSWORD_FIELD)).send_keys(Data.PASSWORD)

@@ -10,7 +10,10 @@ class EditProductPage(BasePage):
     PAGE_URL = Links.EDIT_PRODUCT_PAGE
     PRODUCT_NAME_FIELD = ("xpath", "//input[@id='edit-product_name']")
     AVAILABLE_QUANTITY_FIELD = ("xpath", "//input[@placeholder='Available quantity']")
-    SAVE_BUTTON =("xpath", "//button[@type='submit']")
+    SAVE_BUTTON = ("xpath", "//button[@type='submit']")
+
+    def __init__(self, driver):
+        super().__init__(driver)
 
     @allure.step("Change product name")
     def change_product_name(self, new_name):
@@ -32,7 +35,7 @@ class EditProductPage(BasePage):
 
     @allure.step("Save changes")
     def save_changes(self):
-       save_button =  self.wait.until(EC.element_to_be_clickable(self.SAVE_BUTTON))
-       self.driver.execute_script("arguments[0].scrollIntoView();", save_button)
-       save_button.click()
-       time.sleep(3)
+        save_button = self.wait.until(EC.element_to_be_clickable(self.SAVE_BUTTON))
+        self.driver.execute_script("arguments[0].scrollIntoView();", save_button)
+        save_button.click()
+        time.sleep(3)

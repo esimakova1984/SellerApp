@@ -32,9 +32,11 @@ class InventoryPage(BasePage):
         assert get_current_quantity == quantity
         time.sleep(3)
 
-
-    @allure.step("Open 'Add product page'")
+    @allure.step("Open Add product page")
     def open_add_product_page(self):
         self.wait.until(EC.element_to_be_clickable(self.ADD_PRODUCT_BUTTON)).click()
-
-
+        # try:
+        #     alert = self.driver.switch_to.alert
+        #     alert.accept()
+        # except Exception as e:
+        #     print("No alert:", e)

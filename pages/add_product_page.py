@@ -13,15 +13,6 @@ class AddProductPage(BasePage):
     DESCRIPTION_FIELD = ("xpath", "//textarea[@id='add-product_description']")
     SET_CATEGORY = ("xpath", "//input[@id='add-product_treeCategory']")
 
-    @allure.step("Open 'Add product page'")
-    def open_add_product_page(self):
-        self.wait.until(EC.element_to_be_clickable(self.ADD_PRODUCT_BUTTON)).click()
-        # try:
-        #     alert = self.driver.switch_to.alert
-        #     alert.accept()
-        # except Exception as e:
-        #     print("No alert:", e)
-
     @allure.step("Select 'no barcode' checkbox")
     def select_checkbox_no_barckode(self):
         checkbox = self.wait.until(EC.element_to_be_clickable(self.CHECKBOX_NO_BARCODE))

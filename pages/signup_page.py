@@ -1,4 +1,7 @@
 import random
+
+import allure
+
 from base.base_page import BasePage
 from config.data import Data
 from config.links import Links
@@ -16,6 +19,7 @@ class SignUpPage(BasePage):
     CONFIRM_PASSWORD_FIELD = ("xpath", "//input[@id='basic_confirmPassword']")
     SUBMIT_BUTTON = ("xpath", "//button[.='Submit']")
 
+    @allure.step("Fill signup form")
     def fillSignupForm(self):
         login = generate_random_username()
         self.wait.until(EC.element_to_be_clickable(self.EMAIL_FIELD)).send_keys(login)

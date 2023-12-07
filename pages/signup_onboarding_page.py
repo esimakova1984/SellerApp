@@ -1,9 +1,10 @@
 import random
 
+import allure
+
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
-
 
 
 def generate_random_index():
@@ -27,6 +28,7 @@ class OnboardingPage(BasePage):
     FINISH_BUTTON = ("xpath", "//button[contains(.,'Finish')]")
     SUCCESSFULL_CREATE_BUTTON = ("xpath", "//button[.='Ok']")
 
+    @allure.step("Fill onboarding form")
     def fillOnboardingForm(self, storeName, city, street, phoneNumber):
         index = generate_random_index()
         store_name = self.wait.until(EC.element_to_be_clickable(self.STORE_NAME))
@@ -38,6 +40,7 @@ class OnboardingPage(BasePage):
         self.wait.until(EC.element_to_be_clickable(self.PHONE_NUMBER_FIELD)).send_keys(phoneNumber + f"{index}")
         self.wait.until(EC.element_to_be_clickable(self.SAVE_BUTTON)).click()
 
+    @allure.step("Add photo and description")
     def addPhotoAndDescription(self, text):
         index = generate_random_index()
         self.wait.until(EC.element_to_be_clickable(self.DEFAULT_BANNER_BUTTON)).click()
@@ -45,7 +48,3 @@ class OnboardingPage(BasePage):
         self.wait.until(EC.element_to_be_clickable(self.DESCRIPTION_FIELD)).send_keys(text + f"{index}")
         self.wait.until(EC.element_to_be_clickable(self.FINISH_BUTTON)).click()
         self.wait.until(EC.element_to_be_clickable(self.SUCCESSFULL_CREATE_BUTTON)).click()
-
-
-
-
