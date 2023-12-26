@@ -1,4 +1,4 @@
-
+import time
 import allure
 import pytest
 from base.base_test import BaseTest
@@ -17,8 +17,7 @@ class TestAddProduct(BaseTest):
         generated_name = self.add_product_page.enter_name()
         self.add_product_page.enter_description()
         self.add_product_page.select_set_category("שתיה קלה")
-        generated_price = self.add_product_page.enter_price()
-        self.add_product_page.enter_sale_price(generated_price)
+        self.add_product_page.enter_price()
         self.add_product_page.enter_available_quantity()
         self.add_product_page.click_done_button()
         self.inventory_page.is_added_product_saved(generated_name)

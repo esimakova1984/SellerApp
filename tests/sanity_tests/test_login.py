@@ -1,4 +1,3 @@
-
 import allure
 import pytest
 from base.base_test import BaseTest
@@ -11,7 +10,7 @@ class TestSanity(BaseTest):
     @allure.title("Successfull login")
     @allure.severity("Critical")
     @pytest.mark.sanity
-    def test_succeccfull_login(self, login):
+    def test_successfull_login(self, login):
         self.inventory_page.is_opened()
 
     @allure.title("Unsuccessfull login")

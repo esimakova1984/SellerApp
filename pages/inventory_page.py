@@ -1,9 +1,8 @@
+import re
 import time
-
 import allure
 from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver import ActionChains
-
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
@@ -20,6 +19,14 @@ class InventoryPage(BasePage):
     DELETE_BUTTON = ("xpath", "//button[.='Delete']")
     CONFIRM_DELETION = ("xpath", "//button[.='Yes']")
 
+    def is_product_present(self):
+        try:
+            self.wait.until(EC.visibility_of_element_located(self.PRODUCT_CARD))
+            return True
+        except Exception:
+            return False
+
+
     @allure.step("Open product card")
     def open_product_card(self):
         self.wait.until(EC.element_to_be_clickable(self.PRODUCT_CARD)).click()
@@ -32,20 +39,31 @@ class InventoryPage(BasePage):
     def get_product_quantity(self):
         return self.wait.until(EC.visibility_of_element_located(self.PRODUCT_QUANTITY)).text
 
+    @allure.step("Get product name")
     def get_product_name(self):
         product_list = self.wait.until(EC.presence_of_all_elements_located(self.PRODUCT_NAME))
         assert product_list, "Empty list"
         first_product_name = product_list[0].text
         return first_product_name
 
-    @allure.step("Are quantity changes saved")
+    @allure.step("Is quantity change saved")
     def is_quantity_changes_saved(self, quantity):
         current_quantity = self.wait.until(EC.presence_of_all_elements_located(self.PRODUCT_QUANTITY))
-        time.sleep(5)
+        time.sleep(3)
+        actual_quantity_text = current_quantity[0].text
+        actual_quantity_digits = re.sub(r'\D', '', actual_quantity_text)
+        actual_quantity = int(actual_quantity_digits)
         expected_quantity = int(quantity)
-        actual_quantity = int(current_quantity[0].text)
         assert actual_quantity == expected_quantity, f"Expected product quantity: {expected_quantity}, Actual product " \
                                                      f"quantity: {actual_quantity} "
+
+    @allure.step("Is name change save")
+    def is_name_changes_saved(self, name):
+        current_name = self.wait.until(EC.presence_of_all_elements_located(self.PRODUCT_NAME))
+        expected_name = name
+        actual_name = current_name[0].text
+        assert actual_name == expected_name,f"Expected product quantity: {expected_name}, Actual product " \
+                                            f"quantity: {actual_name} "
 
     @allure.step("Open Add product page")
     def open_add_product_page(self):

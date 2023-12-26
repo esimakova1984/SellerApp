@@ -1,39 +1,8 @@
-import random
-import time
-
-import uuid
 import allure
-from faker import Faker
 from selenium.webdriver import Keys, ActionChains
-
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
-
-
-def generate_unic_barcode():
-    generated_numbers = []
-    random_number = ''.join(random.choices('0123456789', k=10))
-    while random_number in generated_numbers:
-        random_number = ''.join(random.choices('0123456789', k=10))
-    generated_numbers.append(random_number)
-    return random_number
-
-
-def generate_random_index():
-    return random.randint(2, 100)
-
-
-def generade_random_word():
-    fake = Faker()
-    random_word = fake.word()
-    return random_word
-
-
-def generate_random_word_list():
-    fake = Faker()
-    random_words_list = [fake.word() for _ in range(5)]
-    return random_words_list
 
 
 class AddProductPage(BasePage):
@@ -62,17 +31,17 @@ class AddProductPage(BasePage):
 
     @allure.step("Enter unic barcode")
     def enter_barcode(self):
-        self.wait.until(EC.element_to_be_clickable(self.ADD_BARCODE_FIELD)).send_keys(generate_unic_barcode())
+        self.wait.until(EC.element_to_be_clickable(self.ADD_BARCODE_FIELD)).send_keys(self.generate_unic_number())
 
     @allure.step("Enter name")
     def enter_name(self):
-        random_name = generade_random_word()
+        random_name = self.generate_random_word()
         self.wait.until(EC.element_to_be_clickable(self.NAME_FIELD)).send_keys(random_name)
         return random_name
 
     @allure.step("Enter description")
     def enter_description(self):
-        self.wait.until(EC.element_to_be_clickable(self.DESCRIPTION_FIELD)).send_keys(generate_random_word_list())
+        self.wait.until(EC.element_to_be_clickable(self.DESCRIPTION_FIELD)).send_keys(self.generate_random_word_list())
 
     @allure.step("Select Set category")
     def select_set_category(self, text):
@@ -82,7 +51,7 @@ class AddProductPage(BasePage):
 
     @allure.step("Enter price")
     def enter_price(self):
-        price = generate_random_index()
+        price = self.generate_random_index()
         self.wait.until(EC.element_to_be_clickable(self.PRICE)).send_keys(price)
         return price
 
@@ -92,9 +61,17 @@ class AddProductPage(BasePage):
 
     @allure.step("Enter available quantity")
     def enter_available_quantity(self):
-        self.wait.until(EC.element_to_be_clickable(self.AVAILABLE_QUANTITY)).send_keys(generate_random_index())
+        self.wait.until(EC.element_to_be_clickable(self.AVAILABLE_QUANTITY)).send_keys(self.generate_random_index())
 
     @allure.step("Click Done button")
     def click_done_button(self):
         self.wait.until(EC.element_to_be_clickable(self.DONE_BUTTON)).click()
-        time.sleep(3)
+        try:
+            alert = self.wait.until(EC.alert_is_present())
+            alert.accept()
+        except Exception as e:
+            print(f"Error: {e}")
+
+
+
+            

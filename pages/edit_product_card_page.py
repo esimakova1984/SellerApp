@@ -1,22 +1,8 @@
-import random
 import time
 import allure
-from faker import Faker
-from selenium.webdriver import Keys
-
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
-
-
-def generate_random_index():
-    return random.randint(2, 100)
-
-
-def generade_random_word():
-    fake = Faker()
-    random_word = fake.word()
-    return random_word
 
 
 class EditProductPage(BasePage):
@@ -32,7 +18,7 @@ class EditProductPage(BasePage):
     @allure.step("Change product name")
     def change_product_name(self):
         time.sleep(5)
-        new_name = generade_random_word()
+        new_name = self.generate_random_word()
         product_name_field = self.wait.until(EC.element_to_be_clickable(self.PRODUCT_NAME_FIELD))
         product_name_field.click()
         self.driver.execute_script("arguments[0].value = '';", product_name_field)
@@ -48,8 +34,9 @@ class EditProductPage(BasePage):
 
     @allure.step("Change product quantity")
     def change_product_quantity(self):
-        quantity = generate_random_index()
+        quantity = self.generate_random_index()
         quantity_field = self.wait.until(EC.element_to_be_clickable(self.AVAILABLE_QUANTITY_FIELD))
+        self.driver.execute_script("arguments[0].scrollIntoView();", quantity_field)
         quantity_field.click()
         self.driver.execute_script("arguments[0].value = '';", quantity_field)
         quantity_field.send_keys(quantity)

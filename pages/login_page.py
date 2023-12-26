@@ -42,7 +42,12 @@ class LoginPage(BasePage):
         self.driver.execute_script("arguments[0].click();", checkbox)
         self.wait.until(EC.element_to_be_clickable(self.SUBMIT_LOGIN)).click()
 
-
+    @allure.step("Quick login")
+    def quick_login(self):
+        self.wait.until(EC.url_to_be(Links.LOGIN_PAGE))
+        self.wait.until(EC.element_to_be_clickable(self.USERNAME_FIELD)).send_keys(Data.LOGIN)
+        self.wait.until(EC.element_to_be_clickable(self.PASSWORD_FIELD)).send_keys(Data.PASSWORD)
+        self.wait.until(EC.element_to_be_clickable(self.SUBMIT_LOGIN)).click()
 
 
 
