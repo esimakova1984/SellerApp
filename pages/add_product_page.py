@@ -6,19 +6,24 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class AddProductPage(BasePage):
-    PAGE_URL = Links.ADD_PRODUCT_PAGE
-    ADD_PRODUCT_BUTTON = ("xpath", "//*[local-name()='svg' and @data-icon='plus']")
+    PAGE_URL = Links.ADD_PRODUCT_PAGE_TNG
+    ADD_PRODUCT_BUTTON = ("xpath", "//li[@id='add']")
     CONTAINER = ("xpath", "//div[@class='ant-card ant-card-bordered']")
     CHECKBOX_NO_BARCODE = ("xpath", "//input[@id='add-product_no-barcode']")
     ADD_BARCODE_FIELD = ("xpath", "//input[@id='add-product_barcode']")
     NAME_FIELD = ("xpath", "//input[@id='add-product_name']")
     DESCRIPTION_FIELD = ("xpath", "//textarea[@id='add-product_description']")
-    SET_CATEGORY = ("xpath", "//input[@id='add-product_treeCategory']")
+    SET_CATEGORY = ("xpath", "//input[@id='add-product_category']")
     SOFT_DRINKS_CATEGORY = ("xpath", "//span[@title='שתיה קלה']")
     PRICE = ("xpath", "//input[@id='add-product_regular_price']")
     SALE_PRICE = ("xpath", "//input[@id='add-product_sale_price']")
-    AVAILABLE_QUANTITY = ("xpath", "//input[@id='add-product_stock_quantity']")
+    AVAILABLE_QUANTITY = ("xpath", "//input[@id='stock_quantity']")
     DONE_BUTTON = ("xpath", "//button[@type='submit']")
+
+    @allure.step("Open  add page")
+    def open_add_page(self):
+        self.wait.until(EC.element_to_be_clickable(self.ADD_PRODUCT_BUTTON)).click()
+
 
     @allure.step("Select 'no barcode' checkbox")
     def select_checkbox_no_barckode(self):
@@ -65,7 +70,9 @@ class AddProductPage(BasePage):
 
     @allure.step("Click Done button")
     def click_done_button(self):
-        self.wait.until(EC.element_to_be_clickable(self.DONE_BUTTON)).click()
+        done_button = self.wait.until(EC.element_to_be_clickable(self.DONE_BUTTON))
+        self.driver.execute_script("arguments[0].scrollIntoView();", done_button)
+        done_button.click()
         try:
             alert = self.wait.until(EC.alert_is_present())
             alert.accept()

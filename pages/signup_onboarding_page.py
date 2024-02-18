@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class OnboardingPage(BasePage):
-    PAGE_URL = Links.ONBOARDING_PAGE
+    PAGE_URL = Links.ONBOARDING_PAGE_TNG
     FIND_YOURE_STORE_FIELD = ("xpath", "//input[@id='contacts_search']")
     STORE_NAME = ("xpath", "//input[@id='contacts_storeName']")
     DROPDOWN_LIST_FIRST_ITEM = ("xpath", "//div[@class='rc-virtual-list-holder-inner']/div[1]")

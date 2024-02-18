@@ -8,7 +8,7 @@ class TestStoreTesting(BaseTest):
 
     @allure.title("Store settings")
     @allure.severity("Critical")
-    @pytest.mark.sanity
+    @pytest.mark.sanyti
     def test_store_settings(self, login):
         self.store_settings_page.open_store_settings_page()
         self.store_settings_page.is_opened()

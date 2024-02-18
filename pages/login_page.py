@@ -1,4 +1,6 @@
 import allure
+import logging
+logging.basicConfig(filename='/Users/olegnarushevich/QA_32_automation/SellerApp/logs/test.log', level=logging.INFO)
 from base.base_page import BasePage
 from config.data import Data
 from config.links import Links
@@ -6,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class LoginPage(BasePage):
-    PAGE_URL = Links.LOGIN_PAGE
+    PAGE_URL = Links.LOGIN_PAGE_TNG
     USERNAME_FIELD = ("xpath", "//*[@id='sign-in_username']")
     PASSWORD_FIELD = ("xpath", "//*[@id='sign-in_password']")
     CHECKBOX_TERMS_OF_USE = ("xpath", "(//span[contains(text(),'I accept the')])[1]")
@@ -44,10 +46,11 @@ class LoginPage(BasePage):
 
     @allure.step("Quick login")
     def quick_login(self):
-        self.wait.until(EC.url_to_be(Links.LOGIN_PAGE))
+        self.wait.until(EC.url_to_be(Links.LOGIN_PAGE_PROD))
         self.wait.until(EC.element_to_be_clickable(self.USERNAME_FIELD)).send_keys(Data.LOGIN)
         self.wait.until(EC.element_to_be_clickable(self.PASSWORD_FIELD)).send_keys(Data.PASSWORD)
         self.wait.until(EC.element_to_be_clickable(self.SUBMIT_LOGIN)).click()
+
 
 
 

@@ -6,14 +6,14 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class EditProductPage(BasePage):
-    PAGE_URL = Links.EDIT_PRODUCT_PAGE
+    PAGE_URL = Links.EDIT_PRODUCT_PAGE_TNG
     BARCODE_FIELD = ("xpath", "//input[@id='edit-product_barcode']")
     PRODUCT_NAME_FIELD = ("xpath", "//input[@id='edit-product_name']")
-    AVAILABLE_QUANTITY_FIELD = ("xpath", "//input[@id='edit-product_stock_quantity']")
+    DESCRIPTION_FIELD = ("xpath", "//textarea[@id='edit-product_description']")
+    AVAILABLE_QUANTITY_FIELD = ("xpath", "//input[@id='stock_quantity']")
     SAVE_BUTTON = ("xpath", "//button[@type='submit']")
-    SET_CATEGORY = ("xpath", "//input[@id='edit-product_treeCategory']")
-    SOFT_DRINKS_CATEGORY = ("xpath", "//span[contains(@class,'ant-select-tree-node-content-wrapper "
-                                     "ant-select-tree-node-content-wrapper-normal')]")
+    SET_CATEGORY = ("xpath", "//input[@id='edit-product_category']")
+    GENERAL_CATEGORY = ("xpath", "//span[@title='כללי']")
 
     @allure.step("Change product name")
     def change_product_name(self):
@@ -26,10 +26,19 @@ class EditProductPage(BasePage):
         self.name = new_name
         return new_name
 
+    def change_description(self):
+        new_description = self.generate_random_word_list()
+        description_field = self.wait.until(EC.element_to_be_clickable(self.DESCRIPTION_FIELD))
+        description_field.click()
+        self.driver.execute_script("arguments[0].value = '';", description_field)
+        description_field.send_keys(new_description)
+        self.description = new_description
+        return new_description
+
     @allure.step("Select Set category")
     def select_set_category(self, text):
         self.wait.until(EC.element_to_be_clickable(self.SET_CATEGORY)).send_keys(text)
-        element = self.wait.until(EC.visibility_of_element_located(self.SOFT_DRINKS_CATEGORY))
+        element = self.wait.until(EC.visibility_of_element_located(self.GENERAL_CATEGORY))
         self.driver.execute_script("arguments[0].click();", element)
 
     @allure.step("Change product quantity")

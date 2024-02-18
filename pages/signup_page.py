@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class SignUpPage(BasePage):
-    PAGE_URL = Links.SIGNUP_PAGE
+    PAGE_URL = Links.SIGNUP_PAGE_TNG
     EMAIL_FIELD = ("xpath", "//input[@id='basic_email']")
     PASSWORD_FIELD = ("xpath", "//input[@id='basic_password']")
     CONFIRM_PASSWORD_FIELD = ("xpath", "//input[@id='basic_confirmPassword']")

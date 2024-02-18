@@ -15,6 +15,7 @@ class BasePage:
 
     def open(self):
         with allure.step(f"Open {self.PAGE_URL} page"):
+            print(f"Opening URL: {self.PAGE_URL}")
             self.driver.get(self.PAGE_URL)
 
     def is_opened(self):
