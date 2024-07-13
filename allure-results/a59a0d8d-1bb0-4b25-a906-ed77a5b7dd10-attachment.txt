@@ -1,0 +1,2 @@
+Opening URL: https://tng-ta.web.app/signUp
+Error Message Text: Password must be between 6 and 26 characters long

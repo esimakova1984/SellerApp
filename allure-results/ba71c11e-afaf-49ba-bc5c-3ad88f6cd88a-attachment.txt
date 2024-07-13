@@ -1,0 +1,2 @@
+Opening URL: https://tng-ta.web.app/signUp
+Error Message Text: Email is not valid

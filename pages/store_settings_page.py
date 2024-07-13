@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class StoreSettingsPage(BasePage):
-    PAGE_URL = Links.STORE_SETTINGS_PAGE_TNG
+    PAGE_URL = Links.STORE_SETTINGS_PAGE_STG
     BURGER_MENU = ("xpath", "//button[@class='ant-btn ant-btn-text ant-btn-circle ant-btn-icon-only']")
     SETTINGS_FROM_BURGER_MENU = ("xpath", "//*[@class='anticon anticon-setting ant-menu-item-icon']")
     # EDIT_SETTINGS_BUTTON = ("xpath", "//*[name()='svg' and @data-icon='edit']")

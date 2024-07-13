@@ -1,12 +1,15 @@
 import time
 import allure
+from selenium.common import ElementClickInterceptedException, TimeoutException
+from selenium.webdriver import Keys
+
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
 
 
 class EditProductPage(BasePage):
-    PAGE_URL = Links.EDIT_PRODUCT_PAGE_TNG
+    PAGE_URL = Links.EDIT_PRODUCT_PAGE_STG
     BARCODE_FIELD = ("xpath", "//input[@id='edit-product_barcode']")
     PRODUCT_NAME_FIELD = ("xpath", "//input[@id='edit-product_name']")
     DESCRIPTION_FIELD = ("xpath", "//textarea[@id='edit-product_description']")
@@ -14,6 +17,8 @@ class EditProductPage(BasePage):
     SAVE_BUTTON = ("xpath", "//button[@type='submit']")
     SET_CATEGORY = ("xpath", "//input[@id='edit-product_category']")
     GENERAL_CATEGORY = ("xpath", "//span[@title='כללי']")
+    EDIT_SALE_PRICE = ("xpath", "//input[@id='edit-product_sale_price']")
+    BADGE_FIELD = ("xpath", "//input[@id='badge']")
 
     @allure.step("Change product name")
     def change_product_name(self):
@@ -29,8 +34,17 @@ class EditProductPage(BasePage):
     def change_description(self):
         new_description = self.generate_random_word_list()
         description_field = self.wait.until(EC.element_to_be_clickable(self.DESCRIPTION_FIELD))
-        description_field.click()
+        # Scroll into view
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", description_field)
+        try:
+            # Click the description field
+            description_field.click()
+        except ElementClickInterceptedException:
+            # Use JavaScript to focus on the field if click is intercepted
+            self.driver.execute_script("arguments[0].focus();", description_field)
+        # Clear the field using JavaScript
         self.driver.execute_script("arguments[0].value = '';", description_field)
+        # Send keys to the description field
         description_field.send_keys(new_description)
         self.description = new_description
         return new_description
@@ -57,3 +71,5 @@ class EditProductPage(BasePage):
         save_button = self.wait.until(EC.element_to_be_clickable(self.SAVE_BUTTON))
         self.driver.execute_script("arguments[0].scrollIntoView();", save_button)
         save_button.click()
+
+

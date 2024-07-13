@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class OnboardingPage(BasePage):
-    PAGE_URL = Links.ONBOARDING_PAGE_TNG
+    PAGE_URL = Links.ONBOARDING_PAGE_STG
     FIND_YOURE_STORE_FIELD = ("xpath", "//input[@id='contacts_search']")
     STORE_NAME = ("xpath", "//input[@id='contacts_storeName']")
     DROPDOWN_LIST_FIRST_ITEM = ("xpath", "//div[@class='rc-virtual-list-holder-inner']/div[1]")
@@ -23,8 +23,8 @@ class OnboardingPage(BasePage):
     DESCRIPTION_FIELD = ("xpath", "//textarea[@id='storefront_description']")
     FINISH_BUTTON = ("xpath", "//button[contains(.,'Finish')]")
     SUCCESSFULL_CREATE_BUTTON = ("xpath", "//button[.='Ok']")
-    banner_image_path = "/Users/olegnarushevich/Desktop/Screen Shot 2022-03-29 at 18.35.10.png"
-    avatar_image_path = '/Users/olegnarushevich/QA_32_automation/webinars/Trello/src/test/resources/images.jpeg'
+    banner_image_path = "/Users/olegnarushevich/Downloads/doll.jpeg"
+    avatar_image_path = '/Users/olegnarushevich/Downloads/doll4.jpeg'
 
     @allure.step("Fill onboarding form")
     def fillOnboardingForm(self, storeName, city, street, phoneNumber):
@@ -70,3 +70,27 @@ class OnboardingPage(BasePage):
     def submitOnboardingForm(self):
         self.wait.until(EC.element_to_be_clickable(self.FINISH_BUTTON)).click()
         self.wait.until(EC.element_to_be_clickable(self.SUCCESSFULL_CREATE_BUTTON)).click()
+
+    @allure.step("Enter store name")
+    def enter_store_name(self, store_name):
+        self.wait.until(EC.element_to_be_clickable(self.STORE_NAME)).send_keys(store_name)
+
+    @allure.step("Enter city")
+    def enter_city(self, city):
+        self.wait.until(EC.element_to_be_clickable(self.CITY_FIELD)).send_keys(city)
+
+    @allure.step("Enter street")
+    def enter_street(self, street):
+        self.wait.until(EC.element_to_be_clickable(self.STREET_FIELD)).send_keys(street)
+
+    @allure.step("Enter street number")
+    def enter_street_number(self, street_number):
+        self.wait.until(EC.element_to_be_clickable(self.STREET_NUMBER_FIELD)).send_keys(street_number)
+
+    @allure.step("Enter phone")
+    def enter_phone_number(self, phone):
+        self.wait.until(EC.element_to_be_clickable(self.PHONE_NUMBER_FIELD)).send_keys(phone)
+
+
+
+
