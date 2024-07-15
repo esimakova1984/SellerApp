@@ -9,7 +9,7 @@ from base.base_test import BaseTest
 class TestDeleteOrderItem(BaseTest):
     @allure.title("Delete item from order")
     @allure.severity("Critical")
-    @pytest.mark.smoke
+    @pytest.mark.sanity
     def test_delete_order_item(self, login):
         self.order_page.open()
         self.order_page.select_order_by_index(1)
