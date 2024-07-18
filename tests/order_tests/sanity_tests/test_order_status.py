@@ -8,7 +8,7 @@ from base.base_test import BaseTest
 class TestOrderStatus(BaseTest):
     @allure.title("Order status")
     @allure.severity("Critical")
-    @pytest.mark.smoke
+    @pytest.mark.sanity
     def test_verify_order_status(self, login):
         self.order_page.open()
         self.order_page.select_order_by_index(1)

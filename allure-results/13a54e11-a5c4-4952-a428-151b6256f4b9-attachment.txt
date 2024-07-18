@@ -1,0 +1,1 @@
+https://shopperstgenv.wpengine.com/wp-json/wc/v2/products?sku=59713474661847513973&consumer_key=ck_51f6246e062c0a24f4c1e0b08432914b6b6b115c&consumer_secret=cs_61c766a4bf7f58551ced3e4ceacd41eb524b2bee

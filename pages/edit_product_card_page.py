@@ -72,4 +72,18 @@ class EditProductPage(BasePage):
         self.driver.execute_script("arguments[0].scrollIntoView();", save_button)
         save_button.click()
 
+    @allure.step("Get product barcode (SKU) from product card")
+    def get_barcode(self):
+        try:
+            barcode_element = self.wait.until(EC.presence_of_element_located(self.BARCODE_FIELD))
+        except TimeoutException:
+            allure.attach("Timeout while waiting for barcode element", name="Timeout Error", attachment_type=allure.attachment_type.TEXT)
+            assert False, "Timeout while waiting for barcode element"
+
+        assert barcode_element, "Barcode element not found on product page"
+
+        barcode = barcode_element.get_attribute("value")
+        allure.attach(barcode if barcode else "None", name="Barcode Value", attachment_type=allure.attachment_type.TEXT)
+        assert barcode, "Barcode is empty"
+        return barcode
 
