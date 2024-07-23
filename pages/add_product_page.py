@@ -164,6 +164,8 @@ class AddProductPage(BasePage):
         badge_field = self.wait.until(EC.visibility_of_element_located(self.BADGE_FIELD))
         badge_field.clear()
         badge_field.send_keys(badge_text)
+        allure.attach(badge_text, name="Badge Text", attachment_type=allure.attachment_type.TEXT)
+        allure.attach(self.driver.get_screenshot_as_png(), name="Badge Field Screenshot", attachment_type=allure.attachment_type.PNG)
         return badge_text
 
     @allure.step("Check if add badge field is disabled")

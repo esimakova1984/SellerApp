@@ -1,0 +1,6 @@
+Opening URL: https://seller-app-stg.web.app/signIn
+Error: Message: 
+
+Badge found: SALE
+Expected badge text: None
+Badge with text 'None' not found: 'in <string>' requires string as left operand, not NoneType

@@ -1,0 +1,5 @@
+Opening URL: https://seller-app-stg.web.app/signIn
+Error: Message: 
+
+Badge found: SALE
+Expected badge text: SALE

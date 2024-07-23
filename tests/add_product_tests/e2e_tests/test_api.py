@@ -2,6 +2,7 @@ import requests
 import unittest
 from requests.auth import HTTPBasicAuth
 
+
 class TestAPIRequest(unittest.TestCase):
 
     def setUp(self):
@@ -14,7 +15,8 @@ class TestAPIRequest(unittest.TestCase):
         }
 
     def test_api_request(self):
-        response = requests.get(self.url, params=self.params, auth=HTTPBasicAuth(self.consumer_key, self.consumer_secret))
+        response = requests.get(self.url, params=self.params,
+                                auth=HTTPBasicAuth(self.consumer_key, self.consumer_secret))
 
         # Логирование запроса и ответа
         print("Request URL:", response.url)
@@ -28,6 +30,7 @@ class TestAPIRequest(unittest.TestCase):
         # Проверка наличия продуктов в ответе
         products = response.json()
         self.assertTrue(products, "No products found with the specified SKU")
+
 
 if __name__ == "__main__":
     unittest.main()

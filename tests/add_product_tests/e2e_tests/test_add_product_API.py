@@ -9,7 +9,7 @@ class TestAddProductE2E(BaseTest):
 
     @allure.title("Add product and check")
     @allure.severity("Critical")
-    @pytest.mark.smoke
+    @pytest.mark.sanity
     def test_add_product_e2e(self, login):
         with allure.step("Open inventory page"):
             self.inventory_page.is_opened()

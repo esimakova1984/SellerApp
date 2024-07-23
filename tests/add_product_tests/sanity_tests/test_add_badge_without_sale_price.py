@@ -9,7 +9,7 @@ class TestAddBadge(BaseTest):
 
     @allure.title("Edit badge")
     @allure.severity("Critical")
-    @pytest.mark.sanity
+    @pytest.mark.smoke
     def test_add_badge_without_sale_price(self, login):
         self.add_product_page.open_add_page()
         self.inventory_page.deny_webpusher_notification_if_present()

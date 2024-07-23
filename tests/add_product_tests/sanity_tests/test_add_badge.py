@@ -7,7 +7,7 @@ from base.base_test import BaseTest
 class TestAddBadge(BaseTest):
     @allure.title("Add badge")
     @allure.severity("Critical")
-    @pytest.mark.sanity
+    @pytest.mark.smoke
     def test_add_badge(self, login, add_product):
         add_product_page, actual_name = add_product
         self.inventory_page.deny_webpusher_notification_if_present()
